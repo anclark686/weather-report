@@ -2,6 +2,8 @@ const decreaseButton = document.getElementById("decreaseTempControl");
 const increaseButton = document.getElementById("increaseTempControl");
 const tempValue = document.getElementById("tempValue");
 const landscape = document.getElementById("landscape");
+const cityNameInput = document.getElementById('cityNameInput');
+const skySelect = document.getElementById('skySelect');
 
 const updateLandscape = (tempValue) => {
     let landscape_text = "";
@@ -37,17 +39,58 @@ let count = 72;
 updateLandscape(count);
 updateTextColor(count);
 
+const changeCity = () => {
+    const cityName = document.getElementById('cityNameInput').value;
+    const cityHeader= document.getElementById('headerCityName');
 
-decreaseButton.addEventListener("click", () => {
-    count--;
-    tempValue.textContent = count;
-    updateLandscape(count);
-    updateTextColor(count);
-});
+    cityHeader.textContent = cityName[0].toUpperCase() + cityName.substring(1);
+};
 
-increaseButton.addEventListener("click", () => {
-    count++;
-    tempValue.textContent = count;
-    updateLandscape(count);
-    updateTextColor(count);
-});
+const updateSky = () => {
+    const skySelect = document.getElementById('skySelect').value;
+    const sky = document.getElementById('sky');
+    const gardenContent = document.getElementById('gardenContent');
+
+    switch (skySelect) {
+        case 'Sunny':
+            sky.textContent = "☁️ ☁️ ☁️ ☀️ ☁️ ☁️";
+            gardenContent.classList = "garden__content sunny";
+            break;
+        case 'Cloudy':
+            sky.textContent = "☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️";
+            gardenContent.classList = "garden__content cloudy";
+            break;
+        case 'Rainy':
+            sky.textContent = "🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧";
+            gardenContent.classList = "garden__content rainy";
+            break;
+        case 'Snowy':
+            sky.textContent = "🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨";
+            gardenContent.classList = "garden__content snowy";
+            break;
+    };
+  };
+  
+updateSky();
+
+const registerEventHandlers = () => {
+    decreaseButton.addEventListener("click", () => {
+        count--;
+        tempValue.textContent = count;
+        updateLandscape(count);
+        updateTextColor(count);
+    });
+    
+    increaseButton.addEventListener("click", () => {
+        count++;
+        tempValue.textContent = count;
+        updateLandscape(count);
+        updateTextColor(count);
+    });
+
+    cityNameInput.addEventListener("input", changeCity);
+
+    skySelect.addEventListener("change", updateSky);
+};
+
+document.addEventListener("DOMContentLoaded", registerEventHandlers);
