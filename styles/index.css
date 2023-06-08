@@ -96,6 +96,22 @@ flex-direction: column;
 align-items: center;
 }
 
+#increaseTempControl {
+    cursor: pointer;
+}
+
+#increaseTempControl:hover {
+    opacity: 50%;
+}
+
+#decreaseTempControl {
+    cursor: pointer;
+}
+
+#decreaseTempControl:hover {
+    opacity: 50%;
+}
+
 .garden__section > h2 {
 color: white;
 }
