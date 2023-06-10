@@ -102,6 +102,26 @@ body {
   /* justify-content: center; */
 }
 
+.temp-type__buttons {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+}
+
+.temp-type__buttons button {
+  height: 50px;
+  border: none;
+  color: white;
+  background-color: #1b69f9;
+  border-radius: 5px;
+  box-shadow: 2px 2px 2px gray;
+}
+
+.temp-type__buttons button:active {
+  background-color: #0f3a8a;
+  box-shadow: none;
+}
+
 #tempValue {
   font-size: 3rem;
   margin-left: 1.5rem;
