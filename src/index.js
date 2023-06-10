@@ -88,6 +88,7 @@ const findWeather = (latitude, longitude) => {
         .catch((error) => {
             console.log("error in findLocation!");
         });
+    return tempF;
 }
 
 let count = 72;
