@@ -189,17 +189,17 @@ body {
 }
 
 .cloudy {
-  background-color: lightgrey;
+  background: linear-gradient(to bottom, lightgrey, lightgrey, rgb(3, 141, 54));
 }
 
 .sunny {
-  background-color: rgb(221, 255, 255);
+  background: linear-gradient(to bottom, rgb(50, 174, 236), rgb(50, 174, 236), rgb(3, 141, 54));
 }
 
 .rainy {
-  background-color: lightblue;
+  background: linear-gradient(to bottom, lightblue, lightblue, rgb(1, 92, 35));
 }
 
 .snowy {
-  background-color: lightsteelblue;
+  background: linear-gradient(to bottom, lightsteelblue, lightsteelblue, rgb(216, 231, 221));
 }

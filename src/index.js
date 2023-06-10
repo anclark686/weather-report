@@ -8,7 +8,6 @@ const cityNameReset = document.getElementById("cityNameReset");
 const cityNameSection = document.getElementById("cityNameSection");
 const currentTempButton = document.getElementById("currentTempButton");
 const cityNameInputDefault = document.getElementById("cityNameInput").defaultValue = "Seattle";
-const headerCityNameDefault = document.getElementById("headerCityName").textContent = "Seattle";
 
 let locationError = false;
 
@@ -88,7 +87,6 @@ const findWeather = (latitude, longitude) => {
         .catch((error) => {
             console.log("error in findLocation!");
         });
-    return tempF;
 }
 
 let count = 72;
