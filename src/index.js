@@ -2,12 +2,15 @@ const decreaseButton = document.getElementById("decreaseTempControl");
 const increaseButton = document.getElementById("increaseTempControl");
 const tempValue = document.getElementById("tempValue");
 const landscape = document.getElementById("landscape");
-const cityNameInput = document.getElementById('cityNameInput');
-const skySelect = document.getElementById('skySelect');
-const cityNameReset = document.getElementById("cityNameReset")
+const skySelect = document.getElementById("skySelect");
+const cityNameInput = document.getElementById("cityNameInput");
+const cityNameReset = document.getElementById("cityNameReset");
+const cityNameSection = document.getElementById("cityNameSection");
 const currentTempButton = document.getElementById("currentTempButton");
 const cityNameInputDefault = document.getElementById("cityNameInput").defaultValue = "Seattle";
-const headerCityNameDefault = document.getElementById('headerCityName').textContent = "Seattle";
+const headerCityNameDefault = document.getElementById("headerCityName").textContent = "Seattle";
+
+let locationError = false;
 
 const updateLandscape = (tempValue) => {
     let landscape_text = "";
@@ -34,36 +37,45 @@ const updateTextColor = (tempValue) => {
         document.getElementById("tempValue").style.color = "yellow";
     } else if (tempValue >= 50 && tempValue <= 59) {
         document.getElementById("tempValue").style.color = "green";
-    } else if (tempValue <= 49) {
+    } else if (tempValue >= 30 && tempValue <= 49) {
         document.getElementById("tempValue").style.color = "teal";
+    } else if (tempValue <= 29) {
+        document.getElementById("tempValue").style.color = "blue";
     }
 };
 
 const findLatitudeAndLongitude = (query) => {
     let latitude, longitude;
-    axios.get('http://localhost:5000/location',
+    axios.get("http://localhost:5000/location",
         {
             params: {
                 q: query,
-                format: 'json'
+                format: "json"
             }
         })
         .then((response) => {
             latitude = response.data[0].lat;
             longitude = response.data[0].lon;
-
+            console.log(latitude)
+            console.log(longitude)
             findWeather(latitude, longitude);
         })
         .catch((error) => {
-            console.log('error in findLatitudeAndLongitude!');
+            locationError = true;
+            console.log("did you get here?")
+            const errorSpan = document.createElement("span");
+            errorSpan.id = "invalid"
+            errorSpan.innerHTML = "Invalid City"
+            cityNameSection.appendChild(errorSpan)
+            console.log("error in findLatitudeAndLongitude!");
         });
 }
 
 const findWeather = (latitude, longitude) => {
-    axios.get('http://localhost:5000/weather',
+    axios.get("http://localhost:5000/weather",
         {
             params: {
-                format: 'json',
+                format: "json",
                 lat: latitude,
                 lon: longitude
             }
@@ -76,9 +88,9 @@ const findWeather = (latitude, longitude) => {
             updateTextColor(tempF);
         })
         .catch((error) => {
-            console.log('error in findLocation!');
+            console.log("error in findLocation!");
         });
-    return tempF
+    return tempF;
 }
 
 let count = 72;
@@ -86,31 +98,36 @@ updateLandscape(count);
 updateTextColor(count);
 
 const changeCity = () => {
-    const cityName = document.getElementById('cityNameInput').value;
-    const cityHeader = document.getElementById('headerCityName');
+    const cityName = document.getElementById("cityNameInput").value;
+    const cityHeader = document.getElementById("headerCityName");
 
     cityHeader.textContent = cityName[0].toUpperCase() + cityName.substring(1);
+
+    if (locationError) {
+        const invalid = document.getElementById("invalid")
+        invalid.remove();
+    }
 };
 
 const updateSky = () => {
-    const skySelect = document.getElementById('skySelect').value;
-    const sky = document.getElementById('sky');
-    const gardenContent = document.getElementById('gardenContent');
+    const skySelect = document.getElementById("skySelect").value;
+    const sky = document.getElementById("sky");
+    const gardenContent = document.getElementById("gardenContent");
 
     switch (skySelect) {
-        case 'Sunny':
+        case "Sunny":
             sky.textContent = "☁️ ☁️ ☁️ ☀️ ☁️ ☁️";
             gardenContent.classList = "garden__content sunny";
             break;
-        case 'Cloudy':
+        case "Cloudy":
             sky.textContent = "☁️☁️ ☁️ ☁️☁️ ☁️ 🌤 ☁️ ☁️☁️";
             gardenContent.classList = "garden__content cloudy";
             break;
-        case 'Rainy':
-            sky.textContent = "🌧🌈⛈🌧🌧💧⛈🌧🌦🌧💧🌧🌧";
+        case "Rainy":
+            sky.textContent = "🌧🌈🌩️🌧🌧💧🌩️🌧🌦🌧💧🌧🌧";
             gardenContent.classList = "garden__content rainy";
             break;
-        case 'Snowy':
+        case "Snowy":
             sky.textContent = "🌨❄️🌨🌨❄️❄️🌨❄️🌨❄️❄️🌨🌨";
             gardenContent.classList = "garden__content snowy";
             break;
@@ -145,7 +162,8 @@ const registerEventHandlers = () => {
 
     cityNameReset.addEventListener("click", () => {
         cityNameInput.value = cityNameInputDefault
-        document.getElementById('headerCityName').textContent = "Seattle";
+        document.getElementById("headerCityName").textContent = "Seattle";
+        changeCity()
     });
 };
 
