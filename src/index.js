@@ -46,7 +46,7 @@ const updateTextColor = (tempValue) => {
 
 const findLatitudeAndLongitude = (query) => {
     let latitude, longitude;
-    axios.get("http://localhost:5000/location",
+    axios.get("https://ada-weather-report-proxy-server.onrender.com/location",
         {
             params: {
                 q: query,
@@ -72,7 +72,7 @@ const findLatitudeAndLongitude = (query) => {
 }
 
 const findWeather = (latitude, longitude) => {
-    axios.get("http://localhost:5000/weather",
+    axios.get("https://ada-weather-report-proxy-server.onrender.com/weather",
         {
             params: {
                 format: "json",
