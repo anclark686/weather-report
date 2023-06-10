@@ -8,6 +8,7 @@ const cityNameReset = document.getElementById("cityNameReset");
 const cityNameSection = document.getElementById("cityNameSection");
 const currentTempButton = document.getElementById("currentTempButton");
 const cityNameInputDefault = document.getElementById("cityNameInput").defaultValue = "Seattle";
+const headerCityNameDefault = document.getElementById('headerCityName').textContent = "Seattle";
 
 let locationError = false;
 let tempType = "fahrenheit";
@@ -40,7 +41,6 @@ const updateLandscape = (tempValue) => {
             landscape_text = "🌲🌲⛄️🌲⛄️☃️🌲☃️🌲🌲⛄️☃️🌲";
         }
     }
-
 
     landscape.textContent = landscape_text;
 };
@@ -134,7 +134,6 @@ const findWeather = (latitude, longitude) => {
         });
 }
 
-
 updateLandscape(count);
 updateTextColor(count);
 
@@ -203,7 +202,7 @@ const setFahrenheit = () => {
         tempValue.textContent = newTemp;
         count = newTemp;
     }
-    tempType = "fahrenheit"
+    tempType = "fahrenheit";
 }
 const setCelsius = () => {
     if (tempType === "fahrenheit") {
@@ -212,7 +211,7 @@ const setCelsius = () => {
         tempValue.textContent = newTemp;
         count = newTemp;
     }
-    tempType = "celsius"
+    tempType = "celsius";
 }
 
 const registerEventHandlers = () => {
