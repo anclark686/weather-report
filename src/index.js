@@ -56,13 +56,10 @@ const findLatitudeAndLongitude = (query) => {
         .then((response) => {
             latitude = response.data[0].lat;
             longitude = response.data[0].lon;
-            console.log(latitude)
-            console.log(longitude)
             findWeather(latitude, longitude);
         })
         .catch((error) => {
             locationError = true;
-            console.log("did you get here?")
             const errorSpan = document.createElement("span");
             errorSpan.id = "invalid"
             errorSpan.innerHTML = "Invalid City"
