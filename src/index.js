@@ -83,11 +83,11 @@ const findWeather = (latitude, longitude) => {
             document.getElementById("tempValue").textContent = Math.floor(tempF);
             updateLandscape(tempF);
             updateTextColor(tempF);
+            return tempF;
         })
         .catch((error) => {
             console.log("error in findLocation!");
         });
-    return tempF;
 }
 
 let count = 72;
