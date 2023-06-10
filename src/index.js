@@ -103,6 +103,7 @@ const changeCity = () => {
     if (locationError) {
         const invalid = document.getElementById("invalid")
         invalid.remove();
+        locationError = false;
     }
 };
 
