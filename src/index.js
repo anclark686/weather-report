@@ -7,12 +7,15 @@ const cityNameInput = document.getElementById("cityNameInput");
 const cityNameReset = document.getElementById("cityNameReset");
 const cityNameSection = document.getElementById("cityNameSection");
 const currentTempButton = document.getElementById("currentTempButton");
-const cityNameInputDefault = document.getElementById("cityNameInput").defaultValue = "Seattle";
-const headerCityNameDefault = document.getElementById('headerCityName').textContent = "Seattle";
+const headerCityName = document.getElementById('headerCityName');
 
 let locationError = false;
 let tempType = "fahrenheit";
 let count = 72;
+const defaultCity = "Seattle";
+
+cityNameInput.defaultValue = defaultCity;
+headerCityName.textContent = defaultCity;
 
 const updateLandscape = (tempValue) => {
     let landscape_text = "";
@@ -238,9 +241,16 @@ const registerEventHandlers = () => {
         findLatitudeAndLongitude(cityName)
     });
 
+    cityNameInput.addEventListener("keypress", (e) => {
+        if (e.key === "Enter") {
+            const cityName = cityNameInput.value;
+            findLatitudeAndLongitude(cityName);
+        }
+    });
+
     cityNameReset.addEventListener("click", () => {
-        cityNameInput.value = cityNameInputDefault
-        document.getElementById("headerCityName").textContent = "Seattle";
+        cityNameInput.value = defaultCity;
+        headerCityName.textContent = defaultCity;
         changeCity()
     });
 
@@ -250,6 +260,5 @@ const registerEventHandlers = () => {
     const cButton = document.getElementById("celsius");
     cButton.addEventListener("click", setCelsius);
 };
-
 
 document.addEventListener("DOMContentLoaded", registerEventHandlers);
