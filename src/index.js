@@ -100,6 +100,7 @@ const findLatitudeAndLongitude = (query) => {
             errorSpan.id = "invalid"
             errorSpan.innerHTML = "Invalid City"
             cityNameSection.appendChild(errorSpan)
+            console.log(error)
             console.log("error in findLatitudeAndLongitude!");
         });
 }
@@ -115,7 +116,6 @@ const findWeather = (latitude, longitude) => {
         })
         .then((response) => {
             const tempK = response.data.main.temp;
-            console.log(tempType)
             let temp;
             if (tempType === "fahrenheit") {
                 temp = Math.floor((tempK - 273.15) * 9 / 5 + 32);
